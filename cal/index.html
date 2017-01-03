@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel='stylesheet' href='assets/fullcalendar.css' />
+		<script src='lib/jquery.min.js'></script>
+		<script src='lib/moment.min.js'></script>
+		<script src='assets/fullcalendar.js'></script>
+		<script type='text/javascript'>
+			function getStartDate() {
+				var today = new Date();
+				today.setMinutes(0);
+				today.setHours(0);
+				today.setSeconds(0);
+				today.setMilliseconds(0);
+
+				return today;
+			}
+
+			function getEndDate() {
+				var today = new Date();
+				today.setMinutes(59);
+				today.setHours(23);
+				today.setSeconds(59);
+				today.setMilliseconds(59);
+
+				return today;
+			}
+
+			function processData(eventData) {
+				var events = eventData['data'];
+				var todayStart = getStartDate();
+				var todayEnd = getEndDate();
+				var body = document.querySelector('body');
+				for (i = 0; i < events.length; i++) {
+					var eventDate = new Date(events[i].date);
+					if (eventDate >= todayStart && eventDate < todayEnd ) {
+						var p = document.createElement('p');
+						p.textContent = events[i].meeting + ' ' + todayStart + ' ' + todayEnd;
+						body.appendChild(p);
+					}
+				}
+			}
+
+			$(document).ready(function() {
+				var requestUrl = 'http://api.rit.edu/v1/rooms/070-2320/meetings?RITAuthorization=95da72f6e649aff4f45405cded98a109cb1514da';
+				var request = new XMLHttpRequest();
+				request.open('GET', requestUrl);
+				request.responseType = 'json';
+				request.send();
+
+				request.onload = function() {
+					var data = request.response;
+					processData(data);
+				}	
+
+    			$('#calendar').fullCalendar({		
+					header: '',
+					defaultView: 'listDay'
+				})
+			});
+		</script>
+	</head>
+	<body>
+		<div id='calendar'></div>
+	</body>
+</html>
