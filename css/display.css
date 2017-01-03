@@ -1,0 +1,186 @@
+/*
+ *  Display Screen CSS
+ *
+ */
+html {
+    font-family: "Segoe UI";
+}
+
+body {
+    margin: 0;
+    border: 0;
+    background-color: black;
+}
+
+/* DIV PANELS */
+
+.container {
+    margin: 0;
+    border: 0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+#top {
+    border: 0;
+}
+
+.top-container {
+    display: flex;
+    position: absolute;
+    height: 22vh;
+    border: 0;
+    margin: 0;
+    left: 0;
+    top: 0;
+    right: 0;
+}
+
+.top-logo {
+    display: inline-block;
+    text-align: center;
+    width: 12vw;
+    padding-top: 2vh;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-bottom: 2vh;
+}
+
+.top-title {
+    display: inline-block;
+    text-align: center;
+    width: 70vw;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    /*background-color: #F20006;*/
+}
+
+.top-status {
+    display: inline-block;
+    text-align: center;
+    width: 30vw;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+}
+
+#middle {
+    border: 0;
+}
+
+.middle-container {
+    display: flex;
+    position: absolute;
+    height: 58vh;
+    top: 22vh;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.middle-labassistants {
+    display: inline-block;
+    left: 0;
+    min-width: 960px;
+    width: 50vw;
+    background-color: black;
+}
+
+.middle-teachingassistants {
+    display: inline-block;
+    right: 0;
+    width: 50vw;
+    background-color: black;
+}
+
+#bottom {
+    border: 0;
+}
+
+.bottom-container {
+    display: flex;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 20vh;
+    background-color: black;
+}
+
+.bottom-clock {
+    display: inline-block;
+    width: 26vw;
+    margin-top: 1vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-bottom: 1vh;
+    border-radius: 10px;
+    background-color: darkslategrey;
+}
+
+.bottom-staff {
+    width: 70vw;
+    display: inline-block;
+    margin-top: 1vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-bottom: 1vh;
+    border-radius: 10px;
+    background: darkslategray;
+}
+
+.open {
+    background-color: #197b30;
+}
+
+.closed {
+    background-color: #9e0b0f;
+}
+
+/* Logo */
+.top-logo img {
+    height: 18vh;
+    width: 10vw;
+    border: 0;
+}
+
+/* Fonts */
+.top-title-text, .top-status-text {
+    color: white;
+    font-size: 14vh;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.middle-title {
+    color: #f7941e;
+}
+
+p#clock {
+    color: white;
+    font-size: 8vh;
+    line-height: 1;
+    margin-top: 2vh;
+    margin-bottom: 0;
+    text-align: center;
+    letter-spacing: 0.1em;
+}
+
+p#fulldate {
+    color: white;
+    font-size: 3vh;
+    line-height: 1.7em;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: center;
+    letter-spacing: 0.05em;
+}
+
+td.bottom-data {
+    color: white;
+}
+
+th.bottom-data {
+    color: #D3C2A1;
+}
