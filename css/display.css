@@ -85,6 +85,7 @@ body {
     min-width: 960px;
     width: 50vw;
     background-color: black;
+	color: white;
 }
 
 .middle-teachingassistants {
@@ -183,4 +184,14 @@ td.bottom-data {
 
 th.bottom-data {
     color: #D3C2A1;
+}
+
+
+table, th, td {
+    border: 2px solid white;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: center;    
 }
