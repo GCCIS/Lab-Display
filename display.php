@@ -13,6 +13,13 @@
         <title></title>
         <script src="https://code.jquery.com/jquery-latest.js"></script>
         <script src="./scripts/display.js"></script>
+		
+		<!-- FullCalendar and Scheduler files -->
+		<link href='cal/assets/fullcalendar.css' rel='stylesheet' />
+		<script src='cal/lib/jquery.min.js'></script>
+		<script src='cal/lib/moment.min.js'></script>
+		<script src='cal/assets/fullcalendar.js'></script>
+		
     </head>
     <body>
         <div class="container">
@@ -41,82 +48,22 @@
 				
 				//get data from the array
 				foreach ($json_data[data] as $event){
+					
 					//only display if events are on the current date
 					if($event['date'] === $currentDate){
-						//echo 'Date: '.$event['date'];
-						//echo ', Start Time: '.$event['start'];
-						//echo ', End Time: '.$event['end'];
-						//echo ', Meeting: '.$event['meeting'];
-						//echo ', Meeting Type: '.$event['meetingtype'];
-						//echo ', Room Number: '.$event['room']['room'].'<br/>';
+							echo 'Date: '.$event['date'];
+							echo ', Start Time: '.$event['start'];
+							echo ', End Time: '.$event['end'];
+							echo ', Meeting: '.$event['meeting'];
+							echo ', Meeting Type: '.$event['meetingtype'];
+							echo ', Room Number: '.$event['room']['room'].'<br/>';
 					}
 				}
 				
 				
 				?>
 	
-			<table>
-				<tr>
-					<th>Time</th>
-					<th>Class Schedule</th>
-				</tr>
-				<tr>
-					<td>8:00am</td>
-					<td>No class</td>
-				</tr>
-				<tr>
-					<td>9:00am</td>
-					<td>No class</td>
-				</tr>
-				<tr>
-					<td>10:00am</td>
-					<td>No class</td>
-				</tr>
-				<tr>
-					<td>11:00am</td>
-					<td>No class</td>
-				</tr>
-				<tr>
-					<td>12:00pm</td>
-					<td>No class</td>
-				</tr>
-				<tr>
-					<td>1:00pm</td>
-					<td>No class</td>
-				</tr>
-				<tr>
-					<td>2:00pm</td>
-					<td>No class</td>
-				</tr>
-				<tr>
-					<td>3:00pm</td>
-					<td>No class</td>
-				</tr>
-				<tr>
-					<td>4:00pm</td>
-					<td>No class</td>
-				</tr>
-				<tr>
-					<td>5:00pm</td>
-					<td>No class</td>
-				</tr>
-				<tr>
-					<td>6:00pm</td>
-					<td>No class</td>
-				</tr>
-				<tr>
-					<td>7:00pm</td>
-					<td>No class</td>
-				</tr>
-				<tr>
-					<td>8:00pm</td>
-					<td>No class</td>
-				</tr>
-				<tr>
-					<td>9:00pm</td>
-					<td>No class</td>
-				</tr>
-			</table>
+			
 				
                 </div>
                 <div id="middle" class="middle-teachingassistants">
