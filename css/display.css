@@ -62,6 +62,7 @@ body {
     width: 30vw;
     padding-top: 2vh;
     padding-bottom: 2vh;
+    border-radius: 10px;
 }
 
 #middle {
@@ -118,6 +119,9 @@ body {
     margin-bottom: 1vh;
     border-radius: 10px;
     background-color: darkslategrey;
+	position: absolute;
+	right: 0;
+	bottom: 0;
 }
 
 .bottom-staff {
