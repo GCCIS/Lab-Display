@@ -50,12 +50,21 @@
 					
 					//Display calendar -- pass in objects
     				$('#calendar').fullCalendar({
+<<<<<<< HEAD
 						defaultView: 'basicDay',
+=======
+>>>>>>> origin/master
 						header:{
 							left: false,
 							center: false,
 							right: false
+<<<<<<< HEAD
 						}
+=======
+						},
+						defaultView: 'agendaDay',
+						defaultDate: '2016-10-28'
+>>>>>>> origin/master
 					
 					});
 					
