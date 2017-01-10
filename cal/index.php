@@ -22,23 +22,83 @@
 				request.responseType = 'json';
 				request.send();
 
+				//variable that contains all events on the current day in completed JSON format
+				var todaysEventsJSON = '';
+				
+				
 				request.onload = function() {
 					var data = request.response;
 				
 					var body = document.querySelector('body');
 					var test = document.createElement('p');
-					test.textContent = JSON.stringify(data);
-					body.appendChild(test);
-				}	
+					//test.textContent = JSON.stringify(data);
+					//body.appendChild(test);
+					
+					//Working on getting the values from the data into the correct JSON format needed for fullCalendar
+					var dataObj = JSON.parse(JSON.stringify(data));
+					
+					//Today's Date
+					//var todayDate = moment().format('YYYY-MM-DD');
+					var todayDate = '2016-10-28';
+					var todayTime = moment().format('HH:MM:SS');
+					
+					
+					//JSON object creation for the today's current events
+					var todaysEventsObj = '';
+					
+					
+					
+					//Display calendar -- pass in objects
+    				$('#calendar').fullCalendar({
+						header:{
+							left: false,
+							center: false,
+							right: false
+						},
+						defaultView: 'agendaDay',
+						defaultDate: '2016-10-28'
+					
+					});
+					
+					
+					//Date and time of all events
+					for(var i=0, len = dataObj.data.length; i < len; i++){
+						//document.getElementById('testingID').innerHTML += dataObj.data[i].date + ' ' + dataObj.data[i].start + '</br>';
+						var eventStartDate = dataObj.data[i].date;
+						
+						//is the event on the currentDate
+						if (todayDate == eventStartDate){
+							//document.getElementById('testingID').innerHTML += dataObj.data[i].date + ' ' + dataObj.data[i].start + '</br>';
+							
+							var eventStart = dataObj.data[i].date + ' ' + dataObj.data[i].start;
+							var eventEnd = dataObj.data[i].date + ' ' + dataObj.data[i].end;
+							
+							//creation of the events object in the format fullcalendar requires
+							todaysEventsObj = todaysEventsObj.concat("{title: '"+ dataObj.data[i].meeting + "',start:'" + eventStart + "', end: '" + eventEnd + "'},");
+							var eventObj = '{"title": "'+ dataObj.data[i].meeting + '","start":"' + eventStart + '", "end": "' + eventEnd + '"}';
+							var finalEventObj = JSON.parse(eventObj);
+							$('#calendar').fullCalendar( 'renderEvent', finalEventObj);
+							
+							
+						}
 
-    				$('#calendar').fullCalendar({		
-					header: '',
-					defaultView: 'listDay'
-				})
+					}
+					todaysEventsJSON = todaysEventsObj.slice(0,-1);
+					
+					console.log(eventObj);
+					
+				}	
+					
+					
+					
 			});
+			
+			
+			
 		</script>
 	</head>
 	<body>
 		<div id='calendar'></div>
+		<div id='testingID'></div>
 	</body>
 </html>
