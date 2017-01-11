@@ -22,10 +22,7 @@ body {
     height: 100%;
 }
 
-#top {
-    border: 0;
-}
-
+/* Top Style -- lab name & lab status  */
 .top-container {
     display: flex;
     position: absolute;
@@ -36,26 +33,19 @@ body {
     top: 0;
     right: 0;
 }
-
-.top-logo {
-    display: inline-block;
-    text-align: center;
-    width: 12vw;
-    padding-top: 2vh;
-    padding-left: 1vw;
-    padding-right: 1vw;
-    padding-bottom: 2vh;
-}
-
 .top-title {
     display: inline-block;
     text-align: center;
     width: 70vw;
     padding-top: 2vh;
     padding-bottom: 2vh;
-    /*background-color: #F20006;*/
 }
-
+.top-title-text, .top-status-text {
+    color: white;
+    font-size: 14vh;
+    line-height: 1;
+    text-transform: uppercase;
+}
 .top-status {
     display: inline-block;
     text-align: center;
@@ -64,52 +54,14 @@ body {
     padding-bottom: 2vh;
     border-radius: 10px;
 }
-
-#middle {
-    border: 0;
+.open {
+    background-color: #197b30;
+}
+.closed {
+    background-color: #9e0b0f;
 }
 
-.middle-container {
-    display: flex;
-    position: absolute;
-    height: 58vh;
-    top: 22vh;
-    left: 0;
-    right: 0;
-    margin: 0;
-    padding: 0;
-}
-
-.middle-labassistants {
-    display: inline-block;
-    left: 0;
-    min-width: 960px;
-    width: 50vw;
-    background-color: black;
-	color: white;
-}
-
-.middle-teachingassistants {
-    display: inline-block;
-    right: 0;
-    width: 50vw;
-    background-color: black;
-}
-
-#bottom {
-    border: 0;
-}
-
-.bottom-container {
-    display: flex;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 20vh;
-    background-color: black;
-}
-
+/* Clock Style */
 .bottom-clock {
     display: inline-block;
     width: 26vw;
@@ -123,45 +75,6 @@ body {
 	right: 0;
 	bottom: 0;
 }
-
-.bottom-staff {
-    width: 70vw;
-    display: inline-block;
-    margin-top: 1vh;
-    margin-left: 1vw;
-    margin-right: 1vw;
-    margin-bottom: 1vh;
-    border-radius: 10px;
-    background: darkslategray;
-}
-
-.open {
-    background-color: #197b30;
-}
-
-.closed {
-    background-color: #9e0b0f;
-}
-
-/* Logo */
-.top-logo img {
-    height: 18vh;
-    width: 10vw;
-    border: 0;
-}
-
-/* Fonts */
-.top-title-text, .top-status-text {
-    color: white;
-    font-size: 14vh;
-    line-height: 1;
-    text-transform: uppercase;
-}
-
-.middle-title {
-    color: #f7941e;
-}
-
 p#clock {
     color: white;
     font-size: 8vh;
@@ -171,7 +84,6 @@ p#clock {
     text-align: center;
     letter-spacing: 0.1em;
 }
-
 p#fulldate {
     color: white;
     font-size: 3vh;
@@ -182,20 +94,57 @@ p#fulldate {
     letter-spacing: 0.05em;
 }
 
-td.bottom-data {
-    color: white;
+/* Lab Staff */
+#labStaff{
+	position: absolute;
+	right: 0;
+	top: 50%;
+	background-color: darkslategrey;
+	color: white;
+    border-radius: 10px;
+	width: 26vw;
+	margin-top: 1vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-bottom: 1vh;
+	display: inline-block
+	
 }
-
-th.bottom-data {
-    color: #D3C2A1;
-}
-
-
-table, th, td {
-    border: 2px solid white;
+th{
+    border-color: white;
+	border-style: solid;
+	border-width: 0px 0px 4px 0px;
     border-collapse: collapse;
+	padding: 5px;
+    text-align: center;
 }
-th, td {
+td {
     padding: 5px;
     text-align: center;    
+}
+#labAssistantTable{
+	float: left;
+}
+#teachingAssistantTable{
+	float: left;
+}
+
+
+/* Calendar */
+#calendar{
+	width: 65%;
+	position: absolute;
+	bottom: 0;
+	color: white;
+	margin-top: 1vh;
+    margin-left: 2vw;
+    margin-right: 1vw;
+    margin-bottom: 2vh;
+}
+.fc-title{
+	font-size: 20px;
+	font-weight: bold;
+}
+.fc-time span{
+	font-size: 20px;
 }
