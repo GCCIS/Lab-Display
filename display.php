@@ -45,7 +45,7 @@
 					
 					//Today's Date and Time
 					//var todayDate = moment().format('YYYY-MM-DD');
-					var todayDate = '2016-11-04';
+					var todayDate = '2017-02-01';
 					
 					/* NOT THE CORRECT MINUTES */
 					var todayTime = moment().format('HH:MM:SS');
@@ -61,11 +61,12 @@
 							center: false,
 							right: false
 						},
-						defaultDate: '2016-11-04',
+						defaultDate: '2017-02-01',
 						minTime: '08:00:00',
 						maxTime: '22:00:00',
 						contentHeight: 'auto',
-						allDaySlot: false
+						allDaySlot: false,
+						eventColor: '#7F1F00'
 					
 					});
 					
@@ -140,98 +141,96 @@
 				
 				<!--Calendar Here-->
 				<div id='calendar'></div>
-		
-               <div id='labStaff'>
-			   
-					<?php
-						define('SCHEDULE_NAME_LAB_ASSISTANT', 'Lab Assistant');
-						define('SCHEDULE_NAME_TEACHING_ASSISTANT', 'Teaching Assistant');
-						include("modules/simple_html_dom.php");
-						$html = file_get_html("http://work.cias.rit.edu/ist/widgets/unifiedschedule");
-						/*
-						 * <table><tr> in the widgetContent
-						 * The result should be a <td> which contains tables
-						 * Each table is a schedule
-						 */
-						$widgetCells = $html->find("table#widgetContent tr td");
-						
-						foreach ($widgetCells as $widgetCell) {	
-							
-							/* Retrieve Lab Assistant Schedule */
-							/* The title should be in the <th> */
-							$title = $widgetCell->find('th', 0)->plaintext;
-							/* Test to see if this is the lab assistant table */
-							if (stripos($title, SCHEDULE_NAME_LAB_ASSISTANT, 0) !== false) {
-								
-								/*
-								 * A span that contains the lab assistant's name should look like this
-								 * <div  class='list-group-item' style='background-color: #B39EB5'>
-								 * <strong>
-								 * <span id='replaceme' />Kyle Bansavage
-								 * </strong>
-								 * </div>
-								 * </div>
-								 */
-								$labAssistants = $widgetCell->find('div.list-group-item strong');
-								
-								foreach ($labAssistants as $labAssistant) {
-									$labAssistantName = $labAssistant->plaintext;
-									//echo $labAssistantName;
-									$labAssistantResults[] = $labAssistantName;
-								}
-								
-							}
-								
-							/* Retrieve Teaching Assistant Schedule */
-							/* The title should be in the <th> */	
-							$title = $widgetCell->find('th', 0)->plaintext;
-							/* Test to see if this is the teaching assistant table */
-							if (stripos($title, SCHEDULE_NAME_TEACHING_ASSISTANT, 0) !== false) {
-								/* TA Names */
-								$TAs = $widgetCell->find('div.list-group-item strong');
-								foreach ($TAs as $TA) {
-									$TAName = $TA->plaintext;
-									//echo $TAName;
-									$teachingAssistantResults[] = $TAName;
-								}
-							}
-							
-							
-						}
-						
-					?>
-					<table id="labAssistantTable">
-						<tr>
-							<th>Lab Assistants</th>
-						</tr>
+				<div id='labStaffContainer'>
+					<div id='labStaff'>
+
 						<?php
-							if(!empty($labAssistantResults)){
-								foreach($labAssistantResults as $v){
-									echo '<tr><td>'.$v.'</td></tr>';
+							define('SCHEDULE_NAME_LAB_ASSISTANT', 'Lab Assistant');
+							define('SCHEDULE_NAME_TEACHING_ASSISTANT', 'Teaching Assistant');
+							include("modules/simple_html_dom.php");
+							$html = file_get_html("http://work.cias.rit.edu/ist/widgets/unifiedschedule");
+							/*
+							 * <table><tr> in the widgetContent
+							 * The result should be a <td> which contains tables
+							 * Each table is a schedule
+							 */
+							$widgetCells = $html->find("table#widgetContent tr td");
+							
+							foreach ($widgetCells as $widgetCell) {	
+								
+								/* Retrieve Lab Assistant Schedule */
+								/* The title should be in the <th> */
+								$title = $widgetCell->find('th', 0)->plaintext;
+								/* Test to see if this is the lab assistant table */
+								if (stripos($title, SCHEDULE_NAME_LAB_ASSISTANT, 0) !== false) {
+									
+									/*
+									 * A span that contains the lab assistant's name should look like this
+									 * <di  class='list-group-item' style='background-color: #B39EB5'>
+									 * <strong>
+									 * <span id='replaceme' />Kyle Bansavage
+									 * </strong>
+									 */
+									$labAssistants = $widgetCell->find('div.list-group-item strong');
+									
+									foreach ($labAssistants as $labAssistant) {
+										$labAssistantName = $labAssistant->plaintext;
+										//echo $labAssistantName;
+										$labAssistantResults[] = $labAssistantName;
+									}
+									
 								}
-							}
-							else{
-								echo '<tr><td>None on Duty</td></tr>';
-							}
-						?>
-					</table>
-					<table id="teachingAssistantTable">
-						<tr>
-							<th>Teaching Assistants</th>
-						</tr>
-						<?php
-							if(!empty($teachingAssistantResults)){
-								foreach($teachingAssistantResults as $v){
-									echo '<tr><td>'.$v.'</td></tr>';
+									
+								/* Retrieve Teaching Assistant Schedule */
+								/* The title should be in the <th> */	
+								$title = $widgetCell->find('th', 0)->plaintext;
+								/* Test to see if this is the teaching assistant table */
+								if (stripos($title, SCHEDULE_NAME_TEACHING_ASSISTANT, 0) !== false) {
+									/* TA Names */
+									$TAs = $widgetCell->find('div.list-group-item strong');
+									foreach ($TAs as $TA) {
+										$TAName = $TA->plaintext;
+										//echo $TAName;
+										$teachingAssistantResults[] = $TAName;
+									}
 								}
+								
+								
 							}
-							else{
-								echo '<tr><td>None on Duty</td></tr>';
-							}
+							
 						?>
-					</table>
+						<table id="labAssistantTable">
+							<tr>
+								<th>Lab Assistants</th>
+							</tr>
+							<?php
+								if(!empty($labAssistantResults)){
+									foreach($labAssistantResults as $v){
+										echo '<tr><td>'.$v.'</td></tr>';
+									}
+								}
+								else{
+									echo '<tr><td>None on Duty</td></tr>';
+								}
+							?>
+						</table>
+						<table id="teachingAssistantTable">
+							<tr>
+								<th>Teaching Assistants</th>
+							</tr>
+							<?php
+								if(!empty($teachingAssistantResults)){
+									foreach($teachingAssistantResults as $v){
+										echo '<tr><td>'.$v.'</td></tr>';
+									}
+								}
+								else{
+									echo '<tr><td>None on Duty</td></tr>';
+								}
+							?>
+						</table>
+					</div>
 				</div>
-            
 				<div class="bottom-clock">
                     <p id="clock"></p>
                     <p id="fulldate"></p>

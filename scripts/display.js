@@ -17,11 +17,13 @@ function getClock() {
     var suffix = "AM";
 
     // If the time is past noon, correct for 12 hour time instead of 24 hour time
-    if (h > 12) {
+    if(h == 12){
+        suffix = "PM";
+	}
+	else if (h > 12) {
         h -= 12;
         suffix = "PM";
     }
-
     else if (h == 0) {
         h = 12;
     }

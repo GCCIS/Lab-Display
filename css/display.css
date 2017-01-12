@@ -43,37 +43,42 @@ body {
 .top-title-text, .top-status-text {
     color: white;
     font-size: 14vh;
-    line-height: 1;
     text-transform: uppercase;
 }
 .top-status {
     display: inline-block;
     text-align: center;
     width: 30vw;
-    padding-top: 2vh;
-    padding-bottom: 2vh;
+	padding: 22px;
     border-radius: 10px;
+	position: absolute;
+	right: 0;
+    margin-top: 1vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-bottom: 1vh;
 }
 .open {
-    background-color: #197b30;
+    background-color: #9e0b0f;
 }
 .closed {
-    background-color: #9e0b0f;
+    background-color: #197b30;
 }
 
 /* Clock Style */
 .bottom-clock {
     display: inline-block;
-    width: 26vw;
+    width: 30vw;
     margin-top: 1vh;
     margin-left: 1vw;
     margin-right: 1vw;
     margin-bottom: 1vh;
     border-radius: 10px;
-    background-color: darkslategrey;
+    background-color: #3E606F;
 	position: absolute;
 	right: 0;
 	bottom: 0;
+	padding: 20px;
 }
 p#clock {
     color: white;
@@ -96,19 +101,23 @@ p#fulldate {
 
 /* Lab Staff */
 #labStaff{
+	font-size: 20px;
+}
+#labStaffContainer{
+	display: inline-block;
+	width: 30vw;
+	height: 30%;
 	position: absolute;
 	right: 0;
-	top: 50%;
-	background-color: darkslategrey;
+	top: 30%;
+	background-color: #3E606F;
 	color: white;
-    border-radius: 10px;
-	width: 26vw;
 	margin-top: 1vh;
     margin-left: 1vw;
     margin-right: 1vw;
     margin-bottom: 1vh;
-	display: inline-block
-	
+    border-radius: 10px;
+	padding: 20px;
 }
 th{
     border-color: white;
@@ -123,16 +132,22 @@ td {
     text-align: center;    
 }
 #labAssistantTable{
+	display: inline-block;
 	float: left;
+	padding-left: 30px;
+	font-size: 22px;
 }
 #teachingAssistantTable{
-	float: left;
+	font-size: 22px;
+	display: inline-block;
+	float: right;
+	padding-right: 30px;
 }
 
 
 /* Calendar */
 #calendar{
-	width: 65%;
+	width: 60%;
 	position: absolute;
 	bottom: 0;
 	color: white;
@@ -146,5 +161,9 @@ td {
 	font-weight: bold;
 }
 .fc-time span{
+	font-size: 12px;
+}
+.fc-slats>table>tbody>tr>td>span{
 	font-size: 20px;
+	font-weight: bold;
 }
