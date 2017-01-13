@@ -175,8 +175,13 @@
 									
 									foreach ($labAssistants as $labAssistant) {
 										$labAssistantName = $labAssistant->plaintext;
-										//echo $labAssistantName;
-										$labAssistantResults[] = $labAssistantName;
+										
+										if($labAssistantName == 'NOT COVERED'){
+											array_pop($labAssistantResults);
+										}
+										else{
+											$labAssistantResults[] = $labAssistantName;
+										}
 									}
 									
 								}
@@ -190,8 +195,13 @@
 									$TAs = $widgetCell->find('div.list-group-item strong');
 									foreach ($TAs as $TA) {
 										$TAName = $TA->plaintext;
-										//echo $TAName;
-										$teachingAssistantResults[] = $TAName;
+										
+										if(TAName == 'NOT COVERED'){
+											array_pop($teachingAssistantResults);
+										}
+										else{
+											$teachingAssistantResults[] = $TAName;
+										}
 									}
 								}
 								
@@ -204,13 +214,19 @@
 								<th>Lab Assistants</th>
 							</tr>
 							<?php
+							
 								if(!empty($labAssistantResults)){
 									foreach($labAssistantResults as $v){
-										echo '<tr><td>'.$v.'</td></tr>';
+										if($v == 'NOT COVERED'){
+											echo '<tr><td>'.$v.'</td></tr>';
+										}
+										else{
+											echo '<tr><td>'.$v.'</td></tr>';
+										}
 									}
 								}
 								else{
-									echo '<tr><td>None on Duty</td></tr>';
+									 echo '<tr><td>None on Duty</td></tr>';
 								}
 							?>
 						</table>
