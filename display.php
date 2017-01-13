@@ -4,6 +4,15 @@
  * Date: 11/18/2015
  * Time: 11:32 AM
  */
+ 
+	//Gather lab information from the URL
+	/*
+	* URL must follow these guidelines
+	* /display.php?room=070-XXXX&name=Mac+Lab+1
+	*/
+	$roomNumber = $_GET['room'];
+	$roomName = $_GET['name'];
+ 
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +31,8 @@
 		<script type='text/javascript'>
 			$(document).ready(function() 
 			{
-				var requestUrl = 'http://api.rit.edu/v1/rooms/'+'070-2620'+'/meetings?RITAuthorization=95da72f6e649aff4f45405cded98a109cb1514da';
+				//insert the room number from the URL to request JSON
+				var requestUrl = 'http://api.rit.edu/v1/rooms/'+'<?php echo $roomNumber; ?>'+'/meetings?RITAuthorization=95da72f6e649aff4f45405cded98a109cb1514da';
 				var request = new XMLHttpRequest();
 				request.open('GET', requestUrl);
 				request.responseType = 'json';
@@ -132,7 +142,8 @@
         <div class="container">
             <div id="top" class="top-container">
                 <div id="top" class="top-title">
-                    <span class="top-title-text">Projects Lab</span>
+					<!-- Room name gathered from the URL is placed on the page -->
+                    <span class="top-title-text"><?php echo $roomName; ?></span>
                 </div>
                 <div id="top" class="top-status open">
                     <span class="top-status-text">Closed</span>
@@ -226,7 +237,7 @@
 									}
 								}
 								else{
-									 echo '<tr><td>None on Duty</td></tr>';
+									 echo '<tr><td>No Labbie Available</td></tr>';
 								}
 							?>
 						</table>
@@ -241,7 +252,7 @@
 									}
 								}
 								else{
-									echo '<tr><td>None on Duty</td></tr>';
+									echo '<tr><td>No TA Available</td></tr>';
 								}
 							?>
 						</table>
