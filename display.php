@@ -1,18 +1,28 @@
 <?php
-/**
- * User: Jimmy McNatt
- * Date: 11/18/2015
- * Time: 11:32 AM
- */
- 
+
 	//Gather lab information from the URL
 	/*
 	* URL must follow these guidelines
 	* /display.php?room=070-XXXX&name=Mac+Lab+1
 	*/
-	$roomNumber = $_GET['room'];
-	$roomName = $_GET['name'];
- 
+
+	if(isset($_GET['room'])){
+		$roomNumber = $_GET['room'];
+		//sanitize the value passed in
+		$roomNumber = trim($roomNumber);
+		$roomNumber = stripslashes($roomNumber);
+		$roomNumber = strip_tags($roomNumber);
+		$roomNumber = htmlspecialchars($roomNumber);
+	}
+	if(isset($_GET['name'])){
+		$roomName = $_GET['name'];
+		//sanitize the value passed in
+		$roomName = trim($roomName);
+		$roomName = stripslashes($roomName);
+		$roomName = strip_tags($roomName);
+		$roomName = htmlspecialchars($roomName);
+	}
+
 ?>
 
 <!DOCTYPE html>
@@ -76,7 +86,9 @@
 						maxTime: '22:00:00',
 						contentHeight: 'auto',
 						allDaySlot: false,
-						eventColor: '#7F1F00'
+						eventBackgroundColor: '#FF3800',
+						eventBorderColor: '#EFF7F1',
+						slotDuration: '00:60:00'
 					
 					});
 					
@@ -160,6 +172,7 @@
 							define('SCHEDULE_NAME_TEACHING_ASSISTANT', 'Teaching Assistant');
 							include("modules/simple_html_dom.php");
 							$html = file_get_html("http://work.cias.rit.edu/ist/widgets/unifiedschedule");
+						
 							/*
 							 * <table><tr> in the widgetContent
 							 * The result should be a <td> which contains tables
@@ -182,16 +195,37 @@
 									 * <span id='replaceme' />Kyle Bansavage
 									 * </strong>
 									 */
-									$labAssistants = $widgetCell->find('div.list-group-item strong');
+									$labAssistants = $widgetCell->find('div.list-group-item');
 									
 									foreach ($labAssistants as $labAssistant) {
 										$labAssistantName = $labAssistant->plaintext;
 										
-										if($labAssistantName == 'NOT COVERED'){
-											array_pop($labAssistantResults);
+										if(stripos($labAssistantName, 'am -') OR stripos($labAssistantName, 'pm -')){
+											//do nothing - don't display the time
+										}
+										else if(stripos($labAssistantName, 'Covered by:')){
+											$labAssistantName = trim($labAssistantName);
+											$coveredPieces = explode(" ", $labAssistantName);
+											$coveredPieces = array_filter($coveredPieces, 'trim');
+											$coveredPieces = array_values($coveredPieces);
+											
+											//the key that 'by:' is found in
+											$byKey = array_search('by:', $coveredPieces);
+											for($i= 0; $i <= $byKey; $i++){
+												array_shift($coveredPieces);
+											}
+											$labAssistantNameClean = implode(" ", $coveredPieces);
+											
+											$labAssistantResults[] = $labAssistantNameClean;
+											
 										}
 										else{
-											$labAssistantResults[] = $labAssistantName;
+											if($labAssistantName == 'NOT COVERED'){
+												array_pop($labAssistantResults);
+											}
+											else{
+												$labAssistantResults[] = $labAssistantName;
+											}
 										}
 									}
 									
@@ -203,15 +237,35 @@
 								/* Test to see if this is the teaching assistant table */
 								if (stripos($title, SCHEDULE_NAME_TEACHING_ASSISTANT, 0) !== false) {
 									/* TA Names */
-									$TAs = $widgetCell->find('div.list-group-item strong');
+									$TAs = $widgetCell->find('div.list-group-item');
 									foreach ($TAs as $TA) {
 										$TAName = $TA->plaintext;
-										
-										if(TAName == 'NOT COVERED'){
-											array_pop($teachingAssistantResults);
+										if(stripos($TAName, 'am -') OR stripos($TAName, 'pm -')){
+											//do nothing - don't display the time
+										}
+										else if(stripos($TAName, 'Covered by:')){
+											$TAName = trim($TAName);
+											$coveredPieces = explode(" ", $TAName);
+											$coveredPieces = array_filter($coveredPieces, 'trim');
+											$coveredPieces = array_values($coveredPieces);
+											
+											//the key that 'by:' is found in
+											$byKey = array_search('by:', $coveredPieces);
+											for($i= 0; $i <= $byKey; $i++){
+												array_shift($coveredPieces);
+											}
+											$TANameClean = implode(" ", $coveredPieces);
+											
+											$teachingAssistantResults[] = $TANameClean;
+											
 										}
 										else{
-											$teachingAssistantResults[] = $TAName;
+											if(TAName == 'NOT COVERED'){
+												array_pop($teachingAssistantResults);
+											}
+											else{
+												$teachingAssistantResults[] = $TAName;
+											}
 										}
 									}
 								}
@@ -228,12 +282,7 @@
 							
 								if(!empty($labAssistantResults)){
 									foreach($labAssistantResults as $v){
-										if($v == 'NOT COVERED'){
-											echo '<tr><td>'.$v.'</td></tr>';
-										}
-										else{
-											echo '<tr><td>'.$v.'</td></tr>';
-										}
+										echo '<tr><td>'.$v.'</td></tr>';
 									}
 								}
 								else{

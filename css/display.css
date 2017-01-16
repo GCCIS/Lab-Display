@@ -9,7 +9,8 @@ html {
 body {
     margin: 0;
     border: 0;
-    background-color: black;
+    background-color: #1A1E1A;
+	border-color: green;
 }
 
 /* DIV PANELS */
@@ -36,9 +37,10 @@ body {
 .top-title {
     display: inline-block;
     text-align: center;
-    width: 70vw;
+    width: 65vw;
     padding-top: 2vh;
     padding-bottom: 2vh;
+	overflow: hidden;
 }
 .top-title-text, .top-status-text {
     color: white;
@@ -120,7 +122,6 @@ p#fulldate {
 	padding: 20px;
 }
 th{
-    border-color: white;
 	border-style: solid;
 	border-width: 0px 0px 4px 0px;
     border-collapse: collapse;
@@ -147,7 +148,7 @@ td {
 
 /* Calendar */
 #calendar{
-	width: 60%;
+	width: 61%;
 	position: absolute;
 	bottom: 0;
 	color: white;
@@ -166,4 +167,23 @@ td {
 .fc-slats>table>tbody>tr>td>span{
 	font-size: 20px;
 	font-weight: bold;
+}
+.fc-unthemed th,
+.fc-unthemed td,
+.fc-unthemed thead,
+.fc-unthemed tbody,
+.fc-unthemed .fc-divider,
+.fc-unthemed .fc-row,
+.fc-unthemed .fc-content, /* for gutter border */
+.fc-unthemed .fc-popover,
+.fc-unthemed .fc-list-view,
+.fc-unthemed .fc-list-heading td {
+	border-color: #4C555C !important;
+}
+.fc th, .fc td{
+	border-width: 1.5px !important;
+	line-height: 2.5;
+}
+.fc-event, .ui-widget .fc-event{
+		 text-shadow: 1.5px 1.5px 10px #1A1E1A;
 }
