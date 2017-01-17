@@ -83,16 +83,10 @@
 
 				//variable that contains all events on the current day in completed JSON format
 				var todaysEventsJSON = '';
-				
-				
+								
 				request.onload = function() {
 					var data = request.response;
 				
-					var body = document.querySelector('body');
-					var test = document.createElement('p');
-					//test.textContent = JSON.stringify(data);
-					//body.appendChild(test);
-					
 					//Contains all the data from the request URL in 
 					var dataObj = JSON.parse(JSON.stringify(data));
 					
@@ -102,12 +96,9 @@
 					
 					/* NOT THE CORRECT MINUTES */
 					var todayTime = moment().format('HH:MM:SS');
-					
-					
-					
-					
+										
 					//Display the calendar and define defaults
-    				$('#calendar').fullCalendar({
+					$('#calendar').fullCalendar({
 						defaultView: 'agendaDay',
 						header:{
 							left: false,
@@ -150,32 +141,9 @@
 							var eventStartTime = dataObj.data[i].start;
 							var eventEndTime = dataObj.data[i].end;
 							//even indexes are start -- odd indexes are end
-							todaysEventTimesArr.push(eventStartTime, eventEndTime);
-							
-						}
-					
-							
-					}//end of for
-					
-					//go through  events that were on today -- todaysEventTimesArr
-					//Determine Labstatus ---- *****NOT YET WORKING****
-					var labStatus = 'No Status';
-					for(var i=0, len = todaysEventTimesArr.length; i < len; i++){	
-						//then lab is closed
-						
-						if(todayTime>=todaysEventTimesArr[i] && todayTime<=todaysEventTimesArr[i+1]){
-							labStatus = 'Closed';
-							console.log('Closed '+ todayTime);
-							return labStatus;
-						}
-						//then lab is open
-						else{
-							labStatus = 'Open';
-							console.log('Open '+ todayTime);
-							return labStatus;
-						}
-					}
-					console.log(todaysEventTimesArr);
+							todaysEventTimesArr.push(eventStartTime, eventEndTime);							
+						}		
+					}//end of for	
 				}//end of request.onload()					
 			});//end of .ready()
 

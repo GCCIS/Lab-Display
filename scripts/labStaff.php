@@ -59,8 +59,7 @@
 						$labAssistantResults[] = $labAssistantName;
 					}
 				}
-			}
-			
+			}	
 		}
 			
 		/* Retrieve Teaching Assistant Schedule */
@@ -101,8 +100,6 @@
 				}
 			}
 		}
-		
-		
 	}
 
 	function createLabStaff($labStaffResults, $staffType){
