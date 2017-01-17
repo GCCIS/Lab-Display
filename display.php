@@ -6,6 +6,10 @@
 	* /display.php?room=070-XXXX&name=Mac+Lab+1
 	*/
 
+	//start the session so we can send the error to the error page
+	session_start();
+	
+	
 	if(isset($_GET['room'])){
 		$roomNumber = $_GET['room'];
 		//sanitize the value passed in
@@ -13,6 +17,21 @@
 		$roomNumber = stripslashes($roomNumber);
 		$roomNumber = strip_tags($roomNumber);
 		$roomNumber = htmlspecialchars($roomNumber);
+		//the room number does not contain the correct correct length for a room number
+		if(strlen($roomNumber)!== 8){
+			//send to an error page
+			$_SESSION['roomNumberError'] = $roomNumber;
+			$_SESSION['roomNumberErrorDescription'] = 'Room Number must be 8 characters (Example: 070-2670)';
+			header('Location: error_landing_page.php');
+		}
+		//the room number does not valid digits
+		else if(preg_match("/[A-Za-z]/", $roomNumber)){
+			//send to an error page
+			$_SESSION['roomNumberError'] = $roomNumber;
+			$_SESSION['roomNumberErrorDescription'] = 'Room Number may not contain letters';
+			header('Location: error_landing_page.php');
+		}
+		
 	}
 	if(isset($_GET['name'])){
 		$roomName = $_GET['name'];
@@ -21,6 +40,20 @@
 		$roomName = stripslashes($roomName);
 		$roomName = strip_tags($roomName);
 		$roomName = htmlspecialchars($roomName);
+		//room name is not long enough
+		if(strlen($roomName) < 4){
+			//send to an error page
+			$_SESSION['roomNameError'] = $roomName;
+			$_SESSION['roomNameErrorDescription'] = 'Room Name must be 4 letters or longer';
+			header('Location: error_landing_page.php');
+		}
+		//room name is too long
+		else if(strlen($roomName) > 14){
+			//send to an error page
+			$_SESSION['roomNameError'] = $roomName;
+			$_SESSION['roomNameErrorDescription'] = 'Room Name must be 14 characters or less';
+			header('Location: error_landing_page.php');
+		}
 	}
 
 ?>
@@ -87,7 +120,7 @@
 						contentHeight: 'auto',
 						allDaySlot: false,
 						eventBackgroundColor: '#FF3800',
-						eventBorderColor: '#EFF7F1',
+						eventBorderColor: '#4C555C',
 						slotDuration: '00:60:00'
 					
 					});

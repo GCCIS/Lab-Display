@@ -10,7 +10,6 @@ body {
     margin: 0;
     border: 0;
     background-color: #1A1E1A;
-	border-color: green;
 }
 
 /* DIV PANELS */
@@ -185,5 +184,5 @@ td {
 	line-height: 2.5;
 }
 .fc-event, .ui-widget .fc-event{
-		 text-shadow: 1.5px 1.5px 10px #1A1E1A;
+		 text-shadow: 1.8px 1.8px 10px #1A1E1A;
 }
