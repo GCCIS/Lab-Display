@@ -24,7 +24,7 @@
 	</head>
 
 	<body>
-		<p>There was an error in your input</p>
+		<p>There was an error in your input -- Please make sure to specify room and name in your URL (Example: www.istlabs/display.php?room=070-2620&name=Net+Lab)</p>
 	</body>
 
 	</html>
