@@ -198,7 +198,7 @@
 					//call function to render events and add them to the calendar
 					createEventObjects(dataObj, todayDate);
 					
-				}//end of request.onload()					
+				}//end of request.onload()				
 			});//end of .ready()
 
 			
@@ -208,6 +208,25 @@
 			* This will update the complete page
 			*/
 			refreshAt(3,0,0);
+		
+			
+			$(document).ready( function(){
+				$('#labStaff').load('widget.php');
+				refreshLabStaff();
+				
+			});
+			
+			/*
+			* Refresh the lab staff tables every minute
+			* Place the labStaff into the labStaff id
+			*/
+			function refreshLabStaff(){
+				setTimeout( function(){
+					$('#labStaff').hide().load('widget.php').show();
+					refreshLabStaff();
+				}, 60000);
+			}
+			
 		</script>
     </head>
   
@@ -227,28 +246,8 @@
 				<div id='calendar'></div>
 				<div id='labStaffContainer'>
 					<div id='labStaff'>
-
-						<?php
-							include('scripts/labStaff.php');
-							
-						?>
-						<table id="labAssistantTable">
-							<tr>
-								<th>Lab Assistants</th>
-							</tr>
-							<?php
-									echo createLabStaff($labAssistantResults, 'LA');
-									
-							?>
-						</table>
-						<table id="teachingAssistantTable">
-							<tr>
-								<th>Teaching Assistants</th>
-							</tr>
-							<?php
-								echo createLabStaff($teachingAssistantResults, 'TA');
-							?>
-						</table>
+			
+						
 					</div>
 				</div>
 				<div class="bottom-clock">
