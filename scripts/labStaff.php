@@ -110,7 +110,7 @@
 			}
 		}
 		else{
-			if($labStaff === 'LA'){
+			if($staffType === 'LA'){
 				$labStaffTableStr .= '<tr><td>No Labbie Available</td></tr>';
 			}
 			else{

@@ -83,7 +83,7 @@ body {
 }
 p#clock {
     color: white;
-    font-size: 8vh;
+    font-size: 10vh;
     line-height: 1;
     margin-top: 2vh;
     margin-bottom: 0;
@@ -92,12 +92,12 @@ p#clock {
 }
 p#fulldate {
     color: white;
-    font-size: 3vh;
-    line-height: 1.7em;
+    font-size: 5vh;
+    line-height: 1.9em;
     margin-top: 0;
     margin-bottom: 0;
     text-align: center;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em;
 }
 
 /* Lab Staff */
@@ -185,4 +185,7 @@ td {
 }
 .fc-event, .ui-widget .fc-event{
 		 text-shadow: 1.8px 1.8px 10px #1A1E1A;
+}
+.fc-unthemed .fc-today{
+	background: #1A1E1A !important;
 }
