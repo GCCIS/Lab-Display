@@ -111,7 +111,7 @@
 		}
 		else{
 			if($staffType === 'LA'){
-				$labStaffTableStr .= '<tr><td>No Labbie Available</td></tr>';
+				$labStaffTableStr .= '<tr><td>No LA Available</td></tr>';
 			}
 			else{
 				$labStaffTableStr .= '<tr><td>No TA Available</td></tr>';

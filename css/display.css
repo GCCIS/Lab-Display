@@ -37,7 +37,7 @@ body {
     display: inline-block;
     text-align: center;
     width: 65vw;
-    padding-top: 2vh;
+    padding-top: .4vh;
     padding-bottom: 2vh;
 	overflow: hidden;
 }
@@ -181,11 +181,15 @@ td {
 }
 .fc th, .fc td{
 	border-width: 1.5px !important;
-	line-height: 2.5;
+	line-height: 3.1em;
 }
 .fc-event, .ui-widget .fc-event{
 		 text-shadow: 1.8px 1.8px 10px #1A1E1A;
 }
 .fc-unthemed .fc-today{
 	background: #1A1E1A !important;
+}
+.fc-head table span{
+	font-size: 20px;
+	line-height: .2em;
 }
