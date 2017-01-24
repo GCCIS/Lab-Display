@@ -50,14 +50,13 @@
 					$labAssistantResults[] = $labAssistantNameClean;
 					
 				}
-				else{
-					if($labAssistantName == 'NOT COVERED'){
-						array_pop($labAssistantResults);
-					}
-					else{
-						$labAssistantResults[] = $labAssistantName;
-					}
+				else if(stripos($labAssistantName, 'NOT COVERED')){
+						//do nothing -- shift not covered
 				}
+				else{
+					$labAssistantResults[] = $labAssistantName;
+				}
+				
 			}	
 		}
 			
@@ -89,14 +88,13 @@
 					$teachingAssistantResults[] = $TANameClean;
 					
 				}
-				else{
-					if(TAName == 'NOT COVERED'){
-						array_pop($teachingAssistantResults);
-					}
-					else{
-						$teachingAssistantResults[] = $TAName;
-					}
+				else if(stripos($TAName, 'NOT COVERED')){
+						//do nothing -- shift not covered
 				}
+				else{
+					$teachingAssistantResults[] = $TAName;
+				}
+				
 			}
 		}
 	}

@@ -140,7 +140,6 @@
 					maxTime: '22:00:00',
 					contentHeight: 'auto',
 					allDaySlot: false,
-					defaultDate: '2017-02-01',
 					eventBackgroundColor: '#FF3800',
 					eventBorderColor: '#4C555C',
 					slotDuration: '00:60:00'
@@ -187,8 +186,7 @@
 					
 					
 					//Today's Date and Time
-					//var todayDate = moment().format('YYYY-MM-DD');
-					var todayDate = '2017-02-01';
+					var todayDate = moment().format('YYYY-MM-DD');
 					/* NOT THE CORRECT MINUTES */
 					var todayTime = moment().format('HH:MM:SS');
 					
