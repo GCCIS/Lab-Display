@@ -3,13 +3,25 @@
 	//Gather lab information from the URL
 	/*
 	* URL must follow these guidelines
-	* /display.php?room=070-XXXX&name=Mac+Lab+1
+	* /display.php?room=070-XXXX&name=Mac+Lab+1&labDefault=open
 	* In order to achieve a space in the name you must use + symbol
 	*/
 
 	//start the session so we can send the error to the error page
 	session_start();
 	
+	//lab default should be either open or closed
+	if(isset($_GET['labDefault'])){
+		$labStatusDefault = $_GET['labDefault'];
+		//sanitize the value passed in
+		$labStatusDefault = trim($labStatusDefault);
+		$labStatusDefault = stripslashes($labStatusDefault);
+		$labStatusDefault = strip_tags($labStatusDefault);
+		$labStatusDefault = htmlspecialchars($labStatusDefault);
+	}
+	else{
+		header('Location: error_landing_page.php');
+	}
 	
 	if(isset($_GET['room'])){
 		$roomNumber = $_GET['room'];
@@ -47,6 +59,10 @@
 		}
 		
 	}
+	else{
+		header('Location: error_landing_page.php');
+	}
+	
 	if(isset($_GET['name'])){
 		$roomName = $_GET['name'];
 		//sanitize the value passed in
@@ -76,6 +92,9 @@
 			header('Location: error_landing_page.php');
 		}
 	}
+	else{
+		header('Location: error_landing_page.php');
+	}
 
 ?>
 
@@ -93,6 +112,10 @@
 		<script src='cal/lib/moment.min.js'></script>
 		<script src='cal/assets/fullcalendar.js'></script>
 		<script type='text/javascript'>
+			
+			var eventStartTime = [];
+			var eventEndTime = [];
+			
 			
 			/*
 			* Refresh at a certain time each day so the calendar can get new events
@@ -168,8 +191,8 @@
 						
 						
 						//working on determining the lab status by adding start and end times to an array
-						var eventStartTime = dataObj.data[i].start;
-						var eventEndTime = dataObj.data[i].end;						
+						eventStartTime.push(dataObj.data[i].start);
+						eventEndTime.push(dataObj.data[i].end);						
 					}		
 				}//end of for
 			}//end of createEventObjects
@@ -187,8 +210,6 @@
 					
 					//Today's Date and Time
 					var todayDate = moment().format('YYYY-MM-DD');
-					/* NOT THE CORRECT MINUTES */
-					var todayTime = moment().format('HH:MM:SS');
 					
 					
 					//call function to create calendar with no events					
@@ -212,6 +233,9 @@
 				$('#labStaff').load('widget.php');
 				refreshLabStaff();
 				
+				//call function that will set a timeout to consistently refresh the lab status
+				refreshLabStatus();
+				
 			});
 			
 			/*
@@ -225,6 +249,73 @@
 				}, 60000);
 			}
 			
+			/*
+			* Refresh the lab status
+			*/
+			function refreshLabStatus(){
+				setTimeout( function(){
+					//get the current time
+					var clock = new Date();
+					var h = clock.getHours();
+					var m = clock.getMinutes();
+					var currentTime = h + ":" + m + ":01";
+					var currLabStatusText = "Unknown";
+					var currentLabStatusColor = "Black";
+					
+				
+					if(h < 8 && h < 22){
+						//lab is not open becuase it is after hours
+						currLabStatusText = "Closed";
+						currentLabStatusColor = "#9e0b0f";
+					}
+					else if(eventStartTime.length > 0){
+						
+						//if this is changed to true then there is an event at the current time
+						var parsedCurrentTimeIsBetween = false;
+						
+						//there are events scheduled today --  check if they are happening right now
+						for(var i = 0; eventStartTime.length > i; i++){
+							
+							var parsedStartTime = moment(eventStartTime[i], "HH:mm:ss");
+							var parsedEndTime = moment(eventEndTime[i], "HH:mm:ss");
+							
+							parsedCurrentTimeIsBetween += moment(currentTime, "HH:mm:ss").isBetween(parsedStartTime, parsedEndTime);
+						}//end of for
+						
+						if(parsedCurrentTimeIsBetween == 1){
+							currLabStatusText = "Class";
+							currentLabStatusColor = "#9e0b0f";
+						}
+						else{
+							//the default for this lab
+							currLabStatusText = "<?php echo $labStatusDefault; ?>";
+							if(currLabStatusText == 'open'){
+							currentLabStatusColor = "#197b30";
+							}
+							else{
+								currentLabStatusColor = "#9e0b0f";
+							}
+						}
+						
+					}
+					else{
+						//lab by default is open -- no events scheduled today
+						//default for this lab
+						currLabStatusText = "<?php echo $labStatusDefault; ?>";
+						if(currLabStatusText == 'open'){
+							currentLabStatusColor = "#197b30";
+						}
+						else{
+							currentLabStatusColor = "#9e0b0f";
+						}
+					}
+					
+					$('.top-status').css("background-color", currentLabStatusColor);
+					$('.top-status-text').hide().text(currLabStatusText).show();
+					refreshLabStatus();
+				}, 3000);
+			}
+			
 		</script>
     </head>
   
@@ -235,8 +326,8 @@
 					<!-- Room name gathered from the URL is placed on the page -->
                     <span class="top-title-text"><?php echo $roomName; ?></span>
                 </div>
-                <div id="top" class="top-status open">
-                    <span class="top-status-text">Closed</span>
+                <div id="top" class="top-status">
+                    <span class="top-status-text"></span>
                 </div>
             </div>
 				

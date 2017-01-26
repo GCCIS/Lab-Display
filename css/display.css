@@ -59,12 +59,6 @@ body {
     margin-right: 1vw;
     margin-bottom: 1vh;
 }
-.open {
-    background-color: #9e0b0f;
-}
-.closed {
-    background-color: #197b30;
-}
 
 /* Clock Style */
 .bottom-clock {
