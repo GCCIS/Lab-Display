@@ -151,11 +151,12 @@ td {
     margin-bottom: 2vh;
 }
 .fc-title{
-	font-size: 20px;
+	font-size: 28px;
 	font-weight: bold;
 }
 .fc-time span{
-	font-size: 12px;
+	font-size: 20px;
+	font-weight: bold;
 }
 .fc-slats>table>tbody>tr>td>span{
 	font-size: 20px;
@@ -186,4 +187,12 @@ td {
 .fc-head table span{
 	font-size: 20px;
 	line-height: .2em;
+}
+
+.fc-view.fc-agendaDay-view.fc-agenda-view .fc-time-grid-event.fc-event .fc-content .fc-time {
+	display:inline-block;
+}
+.fc-view.fc-agendaDay-view.fc-agenda-view .fc-time-grid-event.fc-event .fc-content .fc-title {
+	display:inline-block; 
+	margin-left:7px;
 }
