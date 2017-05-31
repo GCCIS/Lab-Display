@@ -61,7 +61,7 @@ body {
 }
 
 /* Clock Style */
-.bottom-clock {
+#labSchedules {
     display: inline-block;
     width: 30vw;
     margin-top: 1vh;
@@ -74,24 +74,14 @@ body {
 	right: 0;
 	bottom: 0;
 	padding: 20px;
-}
-p#clock {
     color: white;
-    font-size: 8vh;
-    line-height: 1;
+    font-size: 2vh;
     margin-top: 2vh;
-    margin-bottom: 0;
+    margin-bottom: 1vh;
     text-align: center;
-    letter-spacing: 0.1em;
 }
-p#fulldate {
-    color: white;
-    font-size: 5vh;
-    line-height: 1.9em;
-    margin-top: 0;
-    margin-bottom: 0;
-    text-align: center;
-    letter-spacing: 0.1em;
+#labSchedules p{
+	font-weight: bold;
 }
 
 /* Lab Staff */

@@ -1,0 +1,9 @@
+RoomNumber,RoomName,LabDefault,OpenTime,CloseTime
+070-2160,Net Lab,open,8,10
+070-2320,Sys Lab,open,8,10
+070-2520,Small DB Lab,closed,8,10
+070-2620,Medium DB Lab,closed,8,10
+070-2650,Large DB Lab,closed,8,10
+070-2670,Open Lab,open,8,10
+070-3510,Mac Lab 1,closed,8,10
+070-3690,Mac Lab 2,closed,8,10

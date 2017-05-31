@@ -3,25 +3,13 @@
 	//Gather lab information from the URL
 	/*
 	* URL must follow these guidelines
-	* /display.php?room=070-XXXX&name=Mac+Lab+1&labDefault=open
+	* /display.php?room=070-XXXX
 	* In order to achieve a space in the name you must use + symbol
 	*/
 
 	//start the session so we can send the error to the error page
 	session_start();
 	
-	//lab default should be either open or closed
-	if(isset($_GET['labDefault'])){
-		$labStatusDefault = $_GET['labDefault'];
-		//sanitize the value passed in
-		$labStatusDefault = trim($labStatusDefault);
-		$labStatusDefault = stripslashes($labStatusDefault);
-		$labStatusDefault = strip_tags($labStatusDefault);
-		$labStatusDefault = htmlspecialchars($labStatusDefault);
-	}
-	else{
-		header('Location: error_landing_page.php');
-	}
 	
 	if(isset($_GET['room'])){
 		$roomNumber = $_GET['room'];
@@ -62,39 +50,7 @@
 	else{
 		header('Location: error_landing_page.php');
 	}
-	
-	if(isset($_GET['name'])){
-		$roomName = $_GET['name'];
-		//sanitize the value passed in
-		$roomName = trim($roomName);
-		$roomName = stripslashes($roomName);
-		$roomName = strip_tags($roomName);
-		$roomName = htmlspecialchars($roomName);
-		//room name is not long enough
-		if(strlen($roomName) < 4){
-			//send to an error page
-			$_SESSION['roomNameError'] = $roomName;
-			$_SESSION['roomNameErrorDescription'] = 'Room Name must be 4 letters or longer';
-			header('Location: error_landing_page.php');
-		}
-		//room name is too long
-		else if(strlen($roomName) > 14){
-			//send to an error page
-			$_SESSION['roomNameError'] = $roomName;
-			$_SESSION['roomNameErrorDescription'] = 'Room Name must be 14 characters or less';
-			header('Location: error_landing_page.php');
-		}
-		//the room name contains illegal symbols
-		else if(preg_match('/[\[\]\'^£$%&*()}{@#~?!><>,|=_+¬]/', $roomName)){
-			//send to an error page
-			$_SESSION['roomNameError'] = $roomName;
-			$_SESSION['roomNameErrorDescription'] = 'Room name may not contain illegal symbols (Examples: [\'^£$%&*()}{@#~?!><>,|=_+¬])';
-			header('Location: error_landing_page.php');
-		}
-	}
-	else{
-		header('Location: error_landing_page.php');
-	}
+
 
 ?>
 
@@ -111,6 +67,8 @@
 		<script src='cal/lib/jquery.min.js'></script>
 		<script src='cal/lib/moment.min.js'></script>
 		<script src='cal/assets/fullcalendar.js'></script>
+		
+		
 		<script type='text/javascript'>
 			
 			var eventStartTime = [];
@@ -230,6 +188,11 @@
 		
 			
 			$(document).ready( function(){
+				
+				//call this to get information from the data file and display it on the page
+				getLabInformation();
+				
+				
 				$('#labStaff').load('widget.php');
 				refreshLabStaff();
 				
@@ -288,7 +251,7 @@
 						}
 						else{
 							//the default for this lab
-							currLabStatusText = "<?php echo $labStatusDefault; ?>";
+							currLabStatusText = labDefaultStatus;
 							if(currLabStatusText == 'open'){
 							currentLabStatusColor = "#197b30";
 							}
@@ -301,7 +264,7 @@
 					else{
 						//lab by default is open -- no events scheduled today
 						//default for this lab
-						currLabStatusText = "<?php echo $labStatusDefault; ?>";
+						currLabStatusText = labDefaultStatus;
 						if(currLabStatusText == 'open'){
 							currentLabStatusColor = "#197b30";
 						}
@@ -316,6 +279,55 @@
 				}, 3000);
 			}
 			
+			//variable holds the default for this lab - this is used in refreshing the lab status
+			var labDefaultStatus = "";
+			/*
+			* Working on getting informaiton about the labs from a data file
+			*/
+			function getLabInformation(){
+				$.get( "Lab_Information.csv", function(data) {
+					//data stored by row
+					var databyline = data.split("\n");
+					
+					//arrays for the data
+					var arrRoomNumbers = [];
+					var arrRoomNames = [];
+					var arrLabDefault = [];
+					var arrOpenTime = [];
+					var arrCloseTime = [];
+					
+					//get all the data in arrays
+					for(var i= 0, len = databyline.length; i < len-1; i++){
+						var databyattr = databyline[i+1].split(",");
+							arrRoomNumbers.push(databyattr[0]);
+							arrRoomNames.push(databyattr[1]);
+							arrLabDefault.push(databyattr[2]);
+							arrOpenTime.push(databyattr[3]);
+							arrCloseTime.push(databyattr[4]);
+								
+					}//end of for
+					
+					//for the mini schedule display 
+					for(var h = 0, len = arrRoomNames.length; h < len; h++){	
+						if(arrLabDefault[h] == "open"){
+							$("#labSchedules").append(arrRoomNames[h] + " " + arrRoomNumbers[h] + "<br>");
+						}//end of if
+						
+					}//end of for
+					
+					
+					//put the roomName as the page title
+					for(var j = 0, len = arrRoomNumbers.length; j < len; j++){	
+						if(arrRoomNumbers[j] == "<?php echo $roomNumber; ?>"){
+							$(".top-title-text").append(arrRoomNames[j]);
+							labDefaultStatus = arrLabDefault[j];
+							
+						}
+					}
+					
+				}, "text");
+			}
+			
 		</script>
     </head>
   
@@ -324,7 +336,7 @@
             <div id="top" class="top-container">
                 <div id="top" class="top-title">
 					<!-- Room name gathered from the URL is placed on the page -->
-                    <span class="top-title-text"><?php echo $roomName; ?></span>
+                    <span class="top-title-text"></span>
                 </div>
                 <div id="top" class="top-status">
                     <span class="top-status-text"></span>
@@ -339,10 +351,9 @@
 						
 					</div>
 				</div>
-				<div class="bottom-clock">
-                    <p id="clock"></p>
-                    <p id="fulldate"></p>
-                </div>
+				<div id='labSchedules'>
+					<p>Open Lab Schedules</p>
+				</div>
         </div>
     </body>
 </html>
