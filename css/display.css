@@ -83,6 +83,14 @@ body {
 #labSchedules p{
 	font-weight: bold;
 }
+#labSchedules h3{
+	border-style: solid;
+    border-width: 0px 0px 4px 0px;
+    border-collapse: collapse;
+    text-align: center;
+	font-size: 24px;
+	padding-bottom: 5px;
+}
 
 /* Lab Staff */
 #labStaff{

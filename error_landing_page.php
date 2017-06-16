@@ -19,7 +19,7 @@
 	</head>
 
 	<body>
-		<p>There was an error in your input -- Please make sure to specify room in your URL (Example: www.istlabs/display.php?room=070-2620)</p>
+		<p>There was an error in your input -- Please make sure to specify room in your URL (Example: www.someurl.com/display.php?room=070-2620)</p>
 	</body>
 
 	</html>
