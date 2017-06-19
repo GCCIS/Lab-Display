@@ -14,5 +14,5 @@ The lab data is stored within the Lab_Information.csv file stored on the server.
 ```
 The room number must contain the building number (070 for GCCIS). The room name should be a reasonable length to identify the lab. The lab default is based on whether the lab should be open or closed if there are not currently classes being help within the room. The open and close time must be in 24hr format with a 0 prefix for times less than 10:00 hours.
 
-##Author
+## Author
 * **Amber Libby**
