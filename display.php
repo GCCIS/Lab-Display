@@ -241,7 +241,7 @@
 			*/
 			function createMiniSchedule(roomName, roomNumber, closeTime, openTime, todayDate){
 				//set an interval so this part of the page is updated and always accurate
-				setInterval(function(){
+				setTimeout(function(){
 					//get all of the events that are happening in this room today
 					$.getJSON('http://api.rit.edu/v1/rooms/'+roomNumber+'/meetings?date='+todayDate+'&RITAuthorization=95da72f6e649aff4f45405cded98a109cb1514da',
 						function (json){
@@ -360,7 +360,7 @@
 							}//end of else
 						}//end of success
 					);//end of getJSON
-				},30000000);//end of setInterval
+				},30000000);//end of setTimeout
 			}//end of function createMiniSchedule
 			
 			/*
