@@ -360,7 +360,7 @@
 							}//end of else
 						}//end of success
 					);//end of getJSON
-				},3000);//end of setInterval
+				},30000000);//end of setInterval
 			}//end of function createMiniSchedule
 			
 			/*
@@ -433,7 +433,7 @@
 					//all manipulation is done in widget.php
 					$("#labStaff").hide().load("widget.php").show();
 					refreshLabStaff();
-				}, 60000);
+				}, 3000000000);
 			}//end of refreshLabStaff
 			
 			/*
@@ -503,7 +503,7 @@
 					$('.top-status').css("background-color", currentLabStatusColor);
 					$('.top-status-text').hide().text(currLabStatusText).show();
 					refreshLabStatus(openTime, closeTime);
-				}, 3000);
+				}, 3000000000);
 			}//end of refreshLabStatus
 			
 			/*
