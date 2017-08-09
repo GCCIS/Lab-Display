@@ -424,13 +424,9 @@
 			* Refresh the lab staff tables every minute and place the labStaff into the labStaff id
 			*/
 			function refreshLabStaff(){
-				//set a timeout so that the functions runs every minute to update staff
-				setTimeout( function(){
-					//load widget.php to show who is currently working
-					//all manipulation is done in widget.php
-					$("#labStaff").hide().load("widget.php").show();
-					refreshLabStaff();
-				}, 3000000000);
+				//load widget.php to show who is currently working
+				//all manipulation is done in widget.php
+				$("#labStaff").hide().load("widget.php").show();
 			}//end of refreshLabStaff
 			
 			/*
@@ -441,7 +437,6 @@
 			*/
 			function refreshLabStatus(openTime, closeTime){
 				
-				setTimeout( function(){
 					//get the current time
 					var clock = new Date();
 					var h = addZero(clock.getHours());
@@ -499,8 +494,6 @@
 					}
 					$('.top-status').css("background-color", currentLabStatusColor);
 					$('.top-status-text').hide().text(currLabStatusText).show();
-					refreshLabStatus(openTime, closeTime);
-				}, 3000000000);
 			}//end of refreshLabStatus
 			
 			/*
