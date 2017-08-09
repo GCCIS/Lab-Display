@@ -74,31 +74,6 @@
 			//time this lab opens and closes - from the csv file
 			var labOpenTime = "";
 			var labCloseTime = "";
-			
-			/*
-			* Refresh the entire page at a certain time each day 
-			* so the calendar can get new events
-			* The hours, minutes, seconds will be the exact time set to refresh each day
-			* @param {number} hours - the hour the page will refresh at
-			* @param {number} minutes - the minutes the page will refresh at
-			* @param {number} seconds - the seconds the page will refresh at
-			*/
-			function refreshAt(hours, minutes, seconds) {
-				var now = new Date();
-				var then = new Date();
-
-				if(now.getHours() > hours ||
-				   (now.getHours() == hours && now.getMinutes() > minutes) ||
-					now.getHours() == hours && now.getMinutes() == minutes && now.getSeconds() >= seconds) {
-					then.setDate(now.getDate() + 1);
-				}
-				then.setHours(hours);
-				then.setMinutes(minutes);
-				then.setSeconds(seconds);
-
-				var timeout = (then.getTime() - now.getTime());
-				setTimeout(function() { window.location.reload(true); }, timeout);
-			}//end of refreshAt
 					
 			/*
 			* Request the JSON from the API based on the roomnumber and todays date
@@ -150,7 +125,7 @@
 			/*
 			* This ready function creates the calendar and calendar events
 			* it also gets the information from the csv file, creates the mini schedule, 
-			* calls roomNameAndStatus, and calls refreshLabStaff
+			* calls roomNameAndStatus
 			*/			
 			$(document).ready(function(){
 				
@@ -203,8 +178,7 @@
 					}, "text");	//end of $.get()
 				}//end of request.onload()	
 	
-				$("#labStaff").load("widget.php");
-				refreshLabStaff();
+				$("#labStaff").load("widget.php").show();
 				
 			});//end of .ready()
 			
@@ -419,19 +393,9 @@
 				
 				});
 			}//end of createCalendar()
-					
-			/*
-			* Refresh the lab staff tables every minute and place the labStaff into the labStaff id
-			*/
-			function refreshLabStaff(){
-				//load widget.php to show who is currently working
-				//all manipulation is done in widget.php
-				$("#labStaff").hide().load("widget.php").show();
-			}//end of refreshLabStaff
-			
+				
 			/*
 			* Refresh the lab status to say whether the lab is open, class or closed
-			* Sets a timeout so the the lab status is refreshed every 3 seconds
 			* @param {string} openTime - time the lab opens (retrieved from the lab Schedule csv file)
 			* @param {string} closeTime - time the lab opens (retrieved from the lab Schedule csv file)
 			*/
@@ -496,11 +460,6 @@
 					$('.top-status-text').hide().text(currLabStatusText).show();
 			}//end of refreshLabStatus
 			
-			/*
-			* Call refresh at 3AM each day
-			* This will update the entire page
-			*/
-			refreshAt(3,0,0);
 			/*
 			* Converts military time to 12hr time
 			* @param {string} t - 24hr time in format HH:MM
