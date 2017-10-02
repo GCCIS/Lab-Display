@@ -1,10 +1,10 @@
 RoomNumber,RoomName,LabDefault,OpenTime,CloseTime
-070-2160,Net Lab,open,08:00,22:00
-070-2320,Sys Lab,open,08:00,22:00
-070-2520,Small DB Lab,closed,08:00,22:00
-070-2620,Medium DB Lab,closed,08:00,22:00
-070-2650,Large DB Lab,closed,08:00,22:00
-070-2670,Open Lab,open,08:00,22:00
-070-2660,Grad Lab,open,08:00,22:00
-070-3510,Mac Lab 1,closed,08:00,22:00
-070-3690,Mac Lab 2,closed,08:00,22:00
+070-2160,Net Lab,open,08:00,24:00
+070-2320,Sys Lab,open,08:00,24:00
+070-2520,Small DB Lab,closed,08:00,24:00
+070-2620,Medium DB Lab,closed,08:00,24:00
+070-2650,Large DB Lab,closed,08:00,24:00
+070-2670,Open Lab,open,08:00,24:00
+070-2660,Grad Lab,open,08:00,24:00
+070-3510,Mac Lab 1,closed,08:00,24:00
+070-3690,Mac Lab 2,closed,08:00,24:00
