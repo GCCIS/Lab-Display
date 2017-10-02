@@ -502,7 +502,6 @@
 					}
 					$('.top-status').css("background-color", currentLabStatusColor);
 					$('.top-status-text').hide().text(currLabStatusText).show();
-					refreshLabStatus(openTime, closeTime);
 				}, 3000);
 			}//end of refreshLabStatus
 			
