@@ -162,7 +162,7 @@
 				var request = requestJSON(currentRoomNumber, todayDate);
 								
 				request.onload = function() {
-					
+
 					//arrays for the data
 					var arrRoomNumbers = [];
 					var arrRoomNames = [];
@@ -241,7 +241,6 @@
 			*/
 			function createMiniSchedule(roomName, roomNumber, closeTime, openTime, todayDate){
 				//set an interval so this part of the page is updated and always accurate
-				setInterval(function(){
 					//get all of the events that are happening in this room today
 					$.getJSON('http://api.rit.edu/v1/rooms/'+roomNumber+'/meetings?date='+todayDate+'&RITAuthorization=95da72f6e649aff4f45405cded98a109cb1514da',
 						function (json){
@@ -360,7 +359,6 @@
 							}//end of else
 						}//end of success
 					);//end of getJSON
-				},1000 * 60 * 30);//end of setInterval, refresh every 30 minutes
 			}//end of function createMiniSchedule
 			
 			/*
