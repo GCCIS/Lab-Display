@@ -360,7 +360,7 @@
 							}//end of else
 						}//end of success
 					);//end of getJSON
-				},3000);//end of setInterval
+				},1000 * 60 * 30);//end of setInterval, refresh every 30 minutes
 			}//end of function createMiniSchedule
 			
 			/*
