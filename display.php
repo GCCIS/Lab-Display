@@ -56,7 +56,7 @@
     <head>
         <link rel="stylesheet" type="text/css" href="./css/display.css" />
         <title>Lab-Display</title>
-        <script src="https://code.jquery.com/jquery-latest.js"></script>
+        <script src='cal/lib/jquery-latest.js'></script>
 		
 		<!-- FullCalendar and Scheduler files -->
 		<link href='cal/assets/fullcalendar.css' rel='stylesheet' />
